@@ -1,0 +1,18 @@
+---
+# tasks file for ansible-role-apache
+- name: Installs apache and php
+  yum:
+    name: httpd
+    state: latest
+    update_cache: true
+
+- name: ensure apache is running (and enable it at boot)
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Set SELinux to permissive
+  selinux_permissive:
+    name: httpd_t
+    permissive: true
